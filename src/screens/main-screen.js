@@ -1,31 +1,38 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import React, { useLayoutEffect } from 'react'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
-import { FlatList } from 'react-native-gesture-handler'
-import Post from '../components/post'
 import { DATA } from '../data'
+import AppHeaderIcon from '../components/app-header-icon'
+import PostList from '../components/post-list'
 
 const MainScreeen = ({ navigation }) => {
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                    <Item title='Take Photo'
+                    iconName='ios-camera'
+                    onPress={() => { navigation.navigate('Create') }}
+                    />
+                </HeaderButtons>
+            ),
+            headerLeft: () => (
+                <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                    <Item title='Toggle Drawer'
+                    iconName='ios-menu'
+                    onPress={() => { navigation.toggleDrawer() }}
+                    />
+                </HeaderButtons>
+            )
+        })
+    }, [])
+
     const onOpen = (post) => {
-        navigation.navigate('Post', { postId: post.id})
+        navigation.navigate('Post', { postId: post.id })
     }
-
-    return (
-        <View style={styles.wrapper}>
-            <FlatList
-                data={DATA}
-                keyExtractor={post => post.id.toString()}
-                renderItem={({ item }) => <Post post={item} onOpen={onOpen} />}
-            />
-        </View>
-    )
+    
+    return <PostList posts={DATA} onOpen={onOpen} />
 }
-
-const styles = StyleSheet.create({
-    wrapper: {
-        paddingHorizontal: 10
-    }
-})
 
 export default MainScreeen
