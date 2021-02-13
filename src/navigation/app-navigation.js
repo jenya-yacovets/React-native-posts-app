@@ -10,19 +10,21 @@ import PostScreeen from '../screens/post-screen'
 import THEME from '../theme'
 import BookmarkedScreeen from '../screens/bookmarked-screen'
 
+const screenOptions = {
+    gestureEnabled: true,
+    headerBackTitleVisible: false,
+    headerStyle: {
+        backgroundColor: Platform.OS === 'ios' ? '#fff' : THEME.MAIN_COLOR
+    },
+    headerTintColor: Platform.OS === 'ios' ? THEME.MAIN_COLOR : '#fff'
+}
+
 const Stack = createStackNavigator()
 const StackNavigator = () => {
     return (
         <Stack.Navigator
             initialRouteName="Main"
-            screenOptions={{
-                gestureEnabled: true,
-                headerBackTitleVisible: false,
-                headerStyle: {
-                    backgroundColor: Platform.OS === 'ios' ? '#fff' : THEME.MAIN_COLOR
-                },
-                headerTintColor: Platform.OS === 'ios' ? THEME.MAIN_COLOR : '#fff'
-            }}
+            screenOptions={screenOptions}
         >
             <Stack.Screen
                 name="Main"
@@ -43,20 +45,14 @@ const BookedNavigator = createStackNavigator()
 const StackBottomNavigator = () => {
     return (
         <BookedNavigator.Navigator
-            screenOptions={{
-                headerBackTitleVisible: false,
-                headerStyle: {
-                    backgroundColor: Platform.OS === 'ios' ? '#fff' : THEME.MAIN_COLOR
-                },
-                headerTintColor: Platform.OS === 'ios' ? THEME.MAIN_COLOR : '#fff'
-            }}
+            screenOptions={screenOptions}
         >
             <BookedNavigator.Screen
                 name="Booked"
                 component={BookmarkedScreeen}
-                options={{ 
+                options={{
                     title: 'Избранное'
-                 }}
+                }}
             />
             <BookedNavigator.Screen
                 name="Post"
@@ -81,6 +77,7 @@ if (Platform.OS === 'ios') {
     tabFunction = createMaterialBottomTabNavigator
     tabBarOptionsAndroid = {
         activeColor: '#fff',
+        shifting: true,
         barStyle: {
             backgroundColor: THEME.MAIN_COLOR
         }
@@ -99,7 +96,7 @@ const TabNavigator = () => {
                 component={StackNavigator}
                 options={{
                     tabBarLabel: "Все",
-                    tabBarIcon: ({color, size}) => <Ionicons name="ios-albums" size={size || 25} color={color} />
+                    tabBarIcon: ({ color, size }) => <Ionicons name="ios-albums" size={size || 25} color={color} />
                 }}
             />
             <Tab.Screen
@@ -107,7 +104,7 @@ const TabNavigator = () => {
                 component={StackBottomNavigator}
                 options={{
                     tabBarLabel: "Избранное",
-                    tabBarIcon: ({color, size}) => <Ionicons name="ios-star" size={size || 25} color={color} />
+                    tabBarIcon: ({ color, size }) => <Ionicons name="ios-star" size={size || 25} color={color} />
                 }}
             />
 
