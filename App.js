@@ -3,6 +3,9 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import AppLoading from 'expo-app-loading'
 import { useFonts } from 'expo-font'
+import { NavigationContainer } from '@react-navigation/native'
+
+import StackNavigator from './src/navigation/app-navigation'
 
 export default function App() {
 
@@ -16,22 +19,8 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Text style={styles.text}>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontFamily: 'openSansReqular'
-  }
-});
