@@ -125,7 +125,7 @@ const AboutNavigator = () => {
                 name="About"
                 component={AboutScreeen}
                 options={{
-                    title: 'О блоге'
+                    title: 'О приложении'
                 }}
             />
         </AboutNavigatorStack.Navigator>
@@ -152,10 +152,28 @@ const CreateNavigator = () => {
 const Drawer = createDrawerNavigator()
 const DrawerNavigator = () => {
     return (
-        <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen name="PostTabs" component={TabNavigator} />
-            <Drawer.Screen name="About" component={AboutNavigator} />
-            <Drawer.Screen name="Create" component={CreateNavigator} />
+        <Drawer.Navigator
+            initialRouteName="Home"
+            drawerContentOptions={{
+                activeTintColor: THEME.MAIN_COLOR,
+                labelStyle: {
+                    fontFamily: 'openSansBold'
+                }
+            }}
+        >
+            <Drawer.Screen name="PostTabs" component={TabNavigator}
+                options={{
+                    title: 'Список постов',
+                    drawerIcon: ({ color, size }) => <Ionicons name="ios-newspaper-outline" size={size || 25} color={color} />
+                }} />
+            <Drawer.Screen name="About" component={AboutNavigator} options={{
+                title: 'О приложении',
+                drawerIcon: ({ color, size }) => <Ionicons name="ios-bulb-outline" size={size || 25} color={color} />
+            }} />
+            <Drawer.Screen name="Create" component={CreateNavigator} options={{
+                title: 'Создание поста',
+                drawerIcon: ({ color, size }) => <Ionicons name="ios-create-outline" size={size || 25} color={color} />
+            }} />
         </Drawer.Navigator>
     )
 }

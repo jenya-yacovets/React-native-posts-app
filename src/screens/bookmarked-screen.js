@@ -13,7 +13,7 @@ const BookmarkedScreeen = ({ navigation }) => {
                 <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
                     <Item title='Toggle Drawer'
                         iconName='ios-menu'
-                    // onPress={}
+                        onPress={() => { navigation.toggleDrawer() }}
                     />
                 </HeaderButtons>
             )
