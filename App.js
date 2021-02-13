@@ -2,8 +2,7 @@ import React from 'react'
 import AppLoading from 'expo-app-loading'
 import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native'
-
-import StackNavigator from './src/navigation/app-navigation'
+import TabNavigator from './src/navigation/app-navigation'
 
 export default function App() {
 
@@ -19,8 +18,8 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+      <NavigationContainer>
+        <TabNavigator />
+      </NavigationContainer>
   )
 }
