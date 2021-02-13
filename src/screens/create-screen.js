@@ -4,7 +4,7 @@ import { View, Text } from 'react-native'
 
 import AppHeaderIcon from '../components/app-header-icon'
 
-const AboutScreeen = ({ navigation }) => {
+const CreateScreeen = ({ navigation }) => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -21,9 +21,9 @@ const AboutScreeen = ({ navigation }) => {
 
     return (
         <View>
-            <Text>О блоге</Text>
+            <Text>Создание поста</Text>
         </View>
     )
 }
 
-export default AboutScreeen
+export default CreateScreeen

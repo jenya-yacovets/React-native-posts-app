@@ -13,7 +13,7 @@ const MainScreeen = ({ navigation }) => {
                 <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
                     <Item title='Take Photo'
                     iconName='ios-camera'
-                    // onPress={}
+                    onPress={() => { navigation.navigate('Create') }}
                     />
                 </HeaderButtons>
             ),
@@ -21,7 +21,7 @@ const MainScreeen = ({ navigation }) => {
                 <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
                     <Item title='Toggle Drawer'
                     iconName='ios-menu'
-                    // onPress={}
+                    onPress={() => { navigation.toggleDrawer() }}
                     />
                 </HeaderButtons>
             )

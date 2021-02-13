@@ -4,11 +4,14 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import MainScreeen from '../screens/main-screen'
 import PostScreeen from '../screens/post-screen'
 import THEME from '../theme'
 import BookmarkedScreeen from '../screens/bookmarked-screen'
+import AboutScreeen from '../screens/about-screen'
+import CreateScreeen from '../screens/create-screen'
 
 const screenOptions = {
     gestureEnabled: true,
@@ -112,4 +115,49 @@ const TabNavigator = () => {
     )
 }
 
-export default TabNavigator
+const AboutNavigatorStack = createStackNavigator()
+const AboutNavigator = () => {
+    return (
+        <AboutNavigatorStack.Navigator
+            screenOptions={screenOptions}
+        >
+            <AboutNavigatorStack.Screen
+                name="About"
+                component={AboutScreeen}
+                options={{
+                    title: 'О блоге'
+                }}
+            />
+        </AboutNavigatorStack.Navigator>
+    )
+}
+
+const CreateNavigatorStack = createStackNavigator()
+const CreateNavigator = () => {
+    return (
+        <CreateNavigatorStack.Navigator
+            screenOptions={screenOptions}
+        >
+            <CreateNavigatorStack.Screen
+                name="Create"
+                component={CreateScreeen}
+                options={{
+                    title: 'Создание поста'
+                }}
+            />
+        </CreateNavigatorStack.Navigator>
+    )
+}
+
+const Drawer = createDrawerNavigator()
+const DrawerNavigator = () => {
+    return (
+        <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen name="PostTabs" component={TabNavigator} />
+            <Drawer.Screen name="About" component={AboutNavigator} />
+            <Drawer.Screen name="Create" component={CreateNavigator} />
+        </Drawer.Navigator>
+    )
+}
+
+export default DrawerNavigator
