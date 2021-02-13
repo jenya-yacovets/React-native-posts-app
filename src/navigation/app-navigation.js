@@ -12,13 +12,13 @@ const StackNavigator = () => {
     return (
         <Stack.Navigator
             initialRouteName="Main"
-            screenOptions={{ 
+            screenOptions={{
                 gestureEnabled: true,
                 headerStyle: {
                     backgroundColor: Platform.OS === 'ios' ? '#fff' : THEME.MAIN_COLOR
                 },
                 headerTintColor: Platform.OS === 'ios' ? THEME.MAIN_COLOR : '#fff'
-             }}
+            }}
         >
             <Stack.Screen
                 name="Main"
@@ -34,5 +34,7 @@ const StackNavigator = () => {
         </Stack.Navigator>
     )
 }
+
+
 
 export default StackNavigator

@@ -1,16 +1,33 @@
 import React, { useLayoutEffect } from 'react'
 import { View, StyleSheet, Image, Text, ScrollView, Alert } from 'react-native'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+
 import AppButton from '../components/ui/app-buttons'
 import { DATA } from '../data'
 import THEME from '../theme'
+import AppHeaderIcon from '../components/app-header-icon'
 
 const PostScreeen = ({ navigation, route: { params } }) => {
     const id = params.postId
     const post = DATA.find(item => item.id === id)
 
+    let iconName = 'ios-star'
+
+    if (!post.booked) {
+        iconName = 'ios-star-outline'
+    }
+
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: `Пост - ${post.text}`
+            title: `Пост - ${post.text}`,
+            headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                    <Item title='Take Photo'
+                    iconName={iconName}
+                    // onPress={}
+                    />
+                </HeaderButtons>
+            ),
         })
     }, [])
 
