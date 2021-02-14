@@ -19,16 +19,16 @@ const MainScreeen = ({ navigation }) => {
             headerRight: () => (
                 <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
                     <Item title='Take Photo'
-                    iconName='ios-camera'
-                    onPress={() => { navigation.navigate('Create') }}
+                        iconName='ios-camera'
+                        onPress={() => { navigation.navigate('Create') }}
                     />
                 </HeaderButtons>
             ),
             headerLeft: () => (
                 <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
                     <Item title='Toggle Drawer'
-                    iconName='ios-menu'
-                    onPress={() => { navigation.toggleDrawer() }}
+                        iconName='ios-menu'
+                        onPress={() => { navigation.toggleDrawer() }}
                     />
                 </HeaderButtons>
             )
@@ -38,7 +38,7 @@ const MainScreeen = ({ navigation }) => {
     const onOpen = (post) => {
         navigation.navigate('Post', { postId: post.id })
     }
-    
+
     const allPosts = useSelector(state => state.post.allPosts)
 
     return <PostList posts={allPosts} onOpen={onOpen} />

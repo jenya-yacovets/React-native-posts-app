@@ -26,7 +26,7 @@ const BookmarkedScreeen = ({ navigation }) => {
 
     const bookedPosts = useSelector(state => state.post.bookedPosts)
 
-    return <PostList posts={ bookedPosts } onOpen={onOpen} />
+    return <PostList posts={bookedPosts} onOpen={onOpen} />
 }
 
 
