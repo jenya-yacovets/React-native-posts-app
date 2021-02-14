@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from 'react'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import { useSelector } from 'react-redux'
 
-import { DATA } from '../data'
 import AppHeaderIcon from '../components/app-header-icon'
 import PostList from '../components/post-list'
 
@@ -18,13 +18,15 @@ const BookmarkedScreeen = ({ navigation }) => {
                 </HeaderButtons>
             )
         })
-    }, [])
+    }, [navigation])
 
     const onOpen = (post) => {
         navigation.navigate('Post', { postId: post.id })
     }
 
-    return <PostList posts={DATA.filter(post => post.booked)} onOpen={onOpen} />
+    const bookedPosts = useSelector(state => state.post.bookedPosts)
+
+    return <PostList posts={ bookedPosts } onOpen={onOpen} />
 }
 
 

@@ -1,11 +1,18 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { DATA } from '../data'
 import AppHeaderIcon from '../components/app-header-icon'
 import PostList from '../components/post-list'
+import { loadPosts } from '../store/actions/post'
 
 const MainScreeen = ({ navigation }) => {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(loadPosts())
+    }, [dispatch])
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -26,13 +33,15 @@ const MainScreeen = ({ navigation }) => {
                 </HeaderButtons>
             )
         })
-    }, [])
+    }, [navigation])
 
     const onOpen = (post) => {
         navigation.navigate('Post', { postId: post.id })
     }
     
-    return <PostList posts={DATA} onOpen={onOpen} />
+    const allPosts = useSelector(state => state.post.allPosts)
+
+    return <PostList posts={allPosts} onOpen={onOpen} />
 }
 
 export default MainScreeen
