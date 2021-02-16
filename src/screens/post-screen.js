@@ -1,35 +1,45 @@
 import React, { useLayoutEffect } from 'react'
 import { View, StyleSheet, Image, Text, ScrollView, Alert } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import { useDispatch, useSelector } from 'react-redux'
 
 import AppButton from '../components/ui/app-buttons'
-import { DATA } from '../data'
 import THEME from '../theme'
 import AppHeaderIcon from '../components/app-header-icon'
+import { removePost, toogleBooked } from '../store/actions/post'
 
 const PostScreeen = ({ navigation, route: { params } }) => {
+    const dispatch = useDispatch()
     const id = params.postId
-    const post = DATA.find(item => item.id === id)
-
-    let iconName = 'ios-star'
-
-    if (!post.booked) {
-        iconName = 'ios-star-outline'
-    }
+    const post = useSelector(state => state.post.allPosts.find(item => item.id === id))
+    const booked = useSelector(state => state.post.bookedPosts.some(item => item.id === id))
 
     useLayoutEffect(() => {
+        
+        if (!post) return
+
+        let iconName = 'ios-star'
+
+        if (!post.booked) {
+            iconName = 'ios-star-outline'
+        }
+
         navigation.setOptions({
             title: `Пост - ${post.text}`,
             headerRight: () => (
                 <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-                    <Item title='Take Photo'
-                    iconName={iconName}
-                    // onPress={}
+                    <Item title='Take booked'
+                        iconName={iconName}
+                        onPress={toogleHandler}
                     />
                 </HeaderButtons>
             ),
         })
-    }, [])
+    }, [booked])
+
+    const toogleHandler = () => {
+        dispatch(toogleBooked(id))
+    }
 
     const removeHandler = () => {
 
@@ -41,10 +51,17 @@ const PostScreeen = ({ navigation, route: { params } }) => {
                     text: "Отмена",
                     style: "cancel"
                 },
-                { text: "OK", style: 'destructive', onPress: () => console.log("OK Pressed") }
+                { text: "OK", style: 'destructive', onPress: () => {
+                    navigation.navigate('Main')
+                    dispatch(removePost(id))
+                }}
             ],
             { cancelable: false }
         )
+    }
+
+    if (!post) {
+        return null
     }
 
     return (
