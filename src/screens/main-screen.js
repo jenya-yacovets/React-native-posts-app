@@ -33,7 +33,7 @@ const MainScreeen = ({ navigation }) => {
                 </HeaderButtons>
             )
         })
-    }, [navigation])
+    }, [])
 
     const onOpen = (post) => {
         navigation.navigate('Post', { postId: post.id })
