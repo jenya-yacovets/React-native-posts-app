@@ -18,6 +18,7 @@ export default function MainScreen({ navigation }) {
 
     const allPosts = useSelector(state => state.post.allPosts)
     const loading = useSelector(state => state.post.loading)
+    
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (

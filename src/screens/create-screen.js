@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState, useRef } from 'react'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableWithoutFeedback, Keyboard, Image } from 'react-native'
 import { useDispatch } from 'react-redux'
 import AppHeaderIcon from '../components/app-header-icon'
 import AppButton from '../components/ui/app-buttons'
@@ -12,7 +12,7 @@ const CreateScreeen = ({ navigation }) => {
 
     const [text, setText] = useState('')
     const [name, setName] = useState('')
-    const imageUri = useRef()
+    const [image, setImage] = useState(null)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -27,23 +27,19 @@ const CreateScreeen = ({ navigation }) => {
         })
     }, [])
 
-    const pickerHandler = (uri) => {
-        imageUri.current = uri
-    }
-
     const createPost = () => {
-        const post =   {
-            img: imageUri.current,
+        const post = {
+            img: image,
             name: name,
             text: text,
             date: new Date().toJSON(),
             booked: false
-          }
+        }
         dispatch(addPost(post))
+        navigation.goBack()
         setText('')
         setName('')
-        imageUri.current = null
-        navigation.navigate('Main')
+        setImage(null)
     }
 
     return (
@@ -64,11 +60,12 @@ const CreateScreeen = ({ navigation }) => {
                         onChangeText={setText}
                         multiline
                     />
-                    <PhotoPicker onPicker={pickerHandler} />
+                    <PhotoPicker onPicker={setImage} />
+                    {image && <Image source={{ uri: image }} style={styles.image} />}
                     <AppButton
                         style={styles.button}
                         onPress={createPost}
-                        // disabled={!text || !name || !imageUri}
+                    // disabled={!text || !name || !imageUri}
                     >Опубликовать</AppButton>
                 </View>
             </TouchableWithoutFeedback>
@@ -98,6 +95,11 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 10
+    },
+    image: {
+        marginBottom: 20,
+        width: '100%',
+        height: 200
     }
 })
 

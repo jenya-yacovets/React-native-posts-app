@@ -9,6 +9,7 @@ import AppHeaderIcon from '../components/app-header-icon'
 import { removePost, toogleBooked } from '../store/actions/post'
 
 const PostScreeen = ({ navigation, route: { params } }) => {
+
     const dispatch = useDispatch()
     const id = params.postId
     const post = useSelector(state => state.post.allPosts.find(item => item.id === id))
@@ -52,7 +53,7 @@ const PostScreeen = ({ navigation, route: { params } }) => {
                     style: "cancel"
                 },
                 { text: "OK", style: 'destructive', onPress: () => {
-                    navigation.navigate('Main')
+                    navigation.goBack()
                     dispatch(removePost(id))
                 }}
             ],
