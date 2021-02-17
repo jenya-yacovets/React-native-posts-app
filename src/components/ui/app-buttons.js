@@ -3,11 +3,11 @@ import { TouchableOpacity, TouchableNativeFeedback, View, StyleSheet, Platform, 
 
 import THEME from '../../theme'
 
-const AppButton = ({ children, onPress, style, color = THEME.MAIN_COLOR }) => {
+const AppButton = ({ children, onPress, disabled, style, color = THEME.MAIN_COLOR }) => {
     const Wrapper = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
 
     return (
-        <Wrapper onPress={onPress} activeOpacity={0.75}>
+        <Wrapper onPress={onPress} disabled={disabled} activeOpacity={0.75}>
             <View style={{ ...styles.button, backgroundColor: color, ...style }}>
                 <Text style={styles.text}>{children}</Text>
             </View>

@@ -1,18 +1,18 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState, useRef } from 'react'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import { View, Text, StyleSheet, TextInput, Image, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
 import AppHeaderIcon from '../components/app-header-icon'
 import AppButton from '../components/ui/app-buttons'
 import { addPost } from '../store/actions/post'
+import PhotoPicker from '../components/photo-picker'
 
 const CreateScreeen = ({ navigation }) => {
     const dispatch = useDispatch()
 
     const [text, setText] = useState('')
     const [name, setName] = useState('')
-
-    const img = 'https://static.coindesk.com/wp-content/uploads/2019/01/shutterstock_1012724596-860x430.jpg'
+    const imageUri = useRef()
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -27,9 +27,13 @@ const CreateScreeen = ({ navigation }) => {
         })
     }, [])
 
+    const pickerHandler = (uri) => {
+        imageUri.current = uri
+    }
+
     const createPost = () => {
         const post =   {
-            img,
+            img: imageUri.current,
             name: name,
             text: text,
             date: new Date().toJSON(),
@@ -59,13 +63,11 @@ const CreateScreeen = ({ navigation }) => {
                         onChangeText={setText}
                         multiline
                     />
-                    <Image
-                        style={{ width: '100%', height: 200 }}
-                        source={{ uri: img }}
-                    />
+                    <PhotoPicker onPicker={pickerHandler} />
                     <AppButton
                         style={styles.button}
                         onPress={createPost}
+                        // disabled={!text || !name || !imageUri}
                     >Опубликовать</AppButton>
                 </View>
             </TouchableWithoutFeedback>
