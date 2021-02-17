@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Image, View, Platform, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Platform, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AppButton from './ui/app-buttons';
 
 export default function PhotoPicker({ onPicker }) {
-    const [image, setImage] = useState(null);
-
     useEffect(() => {
         (async () => {
             if (Platform.OS !== 'web') {
@@ -26,7 +24,6 @@ export default function PhotoPicker({ onPicker }) {
         })
 
         if (!result.cancelled) {
-            setImage(result.uri)
             onPicker(result.uri)
         }
 
@@ -35,18 +32,12 @@ export default function PhotoPicker({ onPicker }) {
     return (
         <View style={styles.wrapper}>
             <AppButton onPress={pickImage}>Выбрать фото</AppButton>
-            {image && <Image source={{ uri: image }} style={styles.image} />}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     wrapper: {
-        marginBottom: 20
-    },
-    image: {
-        marginTop: 10,
-        width: '100%',
-        height: 200
+        marginBottom: 10
     }
 })
