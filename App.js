@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AppLoading from 'expo-app-loading'
 import { useFonts } from 'expo-font'
 import { Provider } from 'react-redux'
@@ -6,8 +6,10 @@ import { Provider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import TabNavigator from './src/navigation/app-navigation'
 import store from './src/store'
+import bootstrap from './src/bootstrap'
 
 export default function App() {
+  const [isReady, setIsReady] = useState(false)
 
   const [fontsLoaded] = useFonts({
     openSansReqular: require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -15,9 +17,14 @@ export default function App() {
     openSansLight: require('./assets/fonts/OpenSans-Light.ttf')
   })
 
-
-  if (!fontsLoaded) {
-    return <AppLoading />
+  if (!isReady || !fontsLoaded) {
+    return (
+      <AppLoading
+        startAsync={bootstrap}
+        onFinish={() => setIsReady(true)}
+        onError={err => console.log(err)}
+      />
+    )
   }
 
   return (

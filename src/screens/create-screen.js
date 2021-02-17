@@ -42,6 +42,7 @@ const CreateScreeen = ({ navigation }) => {
         dispatch(addPost(post))
         setText('')
         setName('')
+        imageUri.current = null
         navigation.navigate('Main')
     }
 

@@ -38,7 +38,7 @@ const PostScreeen = ({ navigation, route: { params } }) => {
     }, [booked])
 
     const toogleHandler = () => {
-        dispatch(toogleBooked(id))
+        dispatch(toogleBooked(post))
     }
 
     const removeHandler = () => {
